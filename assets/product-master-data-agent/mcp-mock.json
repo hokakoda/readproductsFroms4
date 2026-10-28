@@ -1,0 +1,404 @@
+{
+  "servers": {
+    "sap-s4-api-product-srv": {
+      "mcp_server_name": "customer.build/product-master-data-657cb.sap-s4-api-product-srv-mcp-server",
+      "description": "Exposes SAP S/4HANA Product Master data operations as MCP tools for read-only access to product descriptions and specifications.",
+      "tools": {
+        "get_metadata_api_product_srv": {
+          "description": "Retrieve OData service metadata document for API_PRODUCT_SRV",
+          "input_schema": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          },
+          "mock_response": {
+            "metadata": "<edmx:Edmx Version=\"1.0\">...</edmx:Edmx>"
+          }
+        },
+        "batch_for_api_product_srv": {
+          "description": "Execute OData batch requests for API_PRODUCT_SRV",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "requests": {
+                "type": "array",
+                "description": "Array of batch requests"
+              }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "responses": []
+          }
+        },
+        "list_a_product_for_api_product_srv": {
+          "description": "Retrieve a list of products from the A_Product entity set",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": {
+                "type": "string",
+                "description": "OData $filter expression (e.g., ProductGroup eq 'PUMP')"
+              },
+              "select": {
+                "type": "string",
+                "description": "Comma-separated list of fields to return"
+              },
+              "orderby": {
+                "type": "string",
+                "description": "Field and direction for sorting (e.g., Product asc)"
+              },
+              "top": {
+                "type": "string",
+                "description": "Maximum number of results to return (max 100)"
+              },
+              "skip": {
+                "type": "string",
+                "description": "Number of records to skip for pagination"
+              },
+              "expand": {
+                "type": "string",
+                "description": "Navigation properties to expand (e.g., to_Description)"
+              },
+              "inlinecount": {
+                "type": "string",
+                "description": "Include total count in response (allpages or none)"
+              }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "results": [
+              {
+                "Product": "P-1001",
+                "ProductType": "FERT",
+                "CrossPlantStatus": "A",
+                "IsMarkedForDeletion": false,
+                "GrossWeight": "2.500",
+                "WeightUnit": "KG",
+                "NetWeight": "2.200",
+                "ProductGroup": "PUMP",
+                "BaseUnit": "EA",
+                "Division": "00",
+                "IndustrySector": "M"
+              },
+              {
+                "Product": "P-1002",
+                "ProductType": "FERT",
+                "CrossPlantStatus": "A",
+                "IsMarkedForDeletion": false,
+                "GrossWeight": "5.000",
+                "WeightUnit": "KG",
+                "NetWeight": "4.500",
+                "ProductGroup": "PUMP",
+                "BaseUnit": "EA",
+                "Division": "00",
+                "IndustrySector": "M"
+              }
+            ]
+          }
+        },
+        "get_a_product_for_api_product_srv": {
+          "description": "Retrieve a single product by product ID from A_Product entity set",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "product": {
+                "type": "string",
+                "description": "Product ID (key field)"
+              },
+              "select": {
+                "type": "string",
+                "description": "Comma-separated list of fields to return"
+              },
+              "expand": {
+                "type": "string",
+                "description": "Navigation properties to expand"
+              }
+            },
+            "required": ["product"]
+          },
+          "mock_response": {
+            "Product": "P-1001",
+            "ProductType": "FERT",
+            "CrossPlantStatus": "A",
+            "IsMarkedForDeletion": false,
+            "GrossWeight": "2.500",
+            "WeightUnit": "KG",
+            "NetWeight": "2.200",
+            "ProductGroup": "PUMP",
+            "BaseUnit": "EA",
+            "Division": "00",
+            "IndustrySector": "M",
+            "ProductIsConfigurable": false
+          }
+        },
+        "count_a_product_for_api_product_srv": {
+          "description": "Return the count of products matching the given filter",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": {
+                "type": "string",
+                "description": "OData $filter expression"
+              }
+            },
+            "required": []
+          },
+          "mock_response": 42
+        },
+        "list_a_productbasictext_for_api_product_srv": {
+          "description": "Retrieve a list of product basic texts (long text descriptions) from A_ProductBasicText",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": {
+                "type": "string",
+                "description": "OData $filter expression"
+              },
+              "select": {
+                "type": "string",
+                "description": "Fields to return"
+              },
+              "top": {
+                "type": "string",
+                "description": "Maximum number of results"
+              },
+              "skip": {
+                "type": "string",
+                "description": "Records to skip"
+              }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "results": [
+              {
+                "Product": "P-1001",
+                "Language": "EN",
+                "LongText": "High-performance centrifugal pump designed for industrial water supply applications. Suitable for continuous operation in harsh environments. Flow rate: up to 500 L/min. Max pressure: 10 bar."
+              }
+            ]
+          }
+        },
+        "get_a_productbasictext_for_api_product_srv": {
+          "description": "Retrieve a single product basic text by product ID and language",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "product": {
+                "type": "string",
+                "description": "Product ID"
+              },
+              "language": {
+                "type": "string",
+                "description": "Language key (e.g., EN, DE)"
+              },
+              "select": {
+                "type": "string",
+                "description": "Fields to return"
+              }
+            },
+            "required": ["product", "language"]
+          },
+          "mock_response": {
+            "Product": "P-1001",
+            "Language": "EN",
+            "LongText": "High-performance centrifugal pump designed for industrial water supply applications. Suitable for continuous operation in harsh environments. Flow rate: up to 500 L/min. Max pressure: 10 bar."
+          }
+        },
+        "count_a_productbasictext_for_api_product_srv": {
+          "description": "Return the count of product basic texts matching the filter",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": {
+                "type": "string",
+                "description": "OData $filter expression"
+              }
+            },
+            "required": []
+          },
+          "mock_response": 5
+        },
+        "list_a_productdescription_for_api_product_srv": {
+          "description": "Retrieve a list of product descriptions (short texts) from A_ProductDescription",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": {
+                "type": "string",
+                "description": "OData $filter expression"
+              },
+              "select": {
+                "type": "string",
+                "description": "Fields to return"
+              },
+              "top": {
+                "type": "string",
+                "description": "Maximum number of results"
+              },
+              "skip": {
+                "type": "string",
+                "description": "Records to skip"
+              }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "results": [
+              {
+                "Product": "P-1001",
+                "Language": "EN",
+                "ProductDescription": "Centrifugal Pump 500L Industrial"
+              },
+              {
+                "Product": "P-1002",
+                "Language": "EN",
+                "ProductDescription": "Centrifugal Pump 1000L Industrial"
+              }
+            ]
+          }
+        },
+        "get_a_productdescription_for_api_product_srv": {
+          "description": "Retrieve a single product description by product ID and language",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "product": {
+                "type": "string",
+                "description": "Product ID"
+              },
+              "language": {
+                "type": "string",
+                "description": "Language key (e.g., EN, DE)"
+              },
+              "select": {
+                "type": "string",
+                "description": "Fields to return"
+              }
+            },
+            "required": ["product", "language"]
+          },
+          "mock_response": {
+            "Product": "P-1001",
+            "Language": "EN",
+            "ProductDescription": "Centrifugal Pump 500L Industrial"
+          }
+        },
+        "count_a_productdescription_for_api_product_srv": {
+          "description": "Return the count of product descriptions matching the filter",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": {
+                "type": "string",
+                "description": "OData $filter expression"
+              }
+            },
+            "required": []
+          },
+          "mock_response": 12
+        },
+        "list_a_productsalesdelivery_for_api_product_srv": {
+          "description": "Retrieve a list of product sales and delivery data from A_ProductSalesDelivery",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": {
+                "type": "string",
+                "description": "OData $filter expression"
+              },
+              "select": {
+                "type": "string",
+                "description": "Fields to return"
+              },
+              "top": {
+                "type": "string",
+                "description": "Maximum number of results"
+              },
+              "skip": {
+                "type": "string",
+                "description": "Records to skip"
+              }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "results": [
+              {
+                "Product": "P-1001",
+                "ProductSalesOrg": "1010",
+                "ProductDistributionChnl": "10",
+                "ItemCategoryGroup": "NORM",
+                "SalesUnit": "EA",
+                "IsMarkedForDeletion": false,
+                "MinimumOrderQuantity": "1.000",
+                "MinimumDeliveryQuantity": "1.000"
+              }
+            ]
+          }
+        },
+        "get_a_productsalesdelivery_for_api_product_srv": {
+          "description": "Retrieve a single product sales and delivery record by product ID, sales org, and distribution channel",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "product": {
+                "type": "string",
+                "description": "Product ID"
+              },
+              "productsalesorg": {
+                "type": "string",
+                "description": "Sales organization"
+              },
+              "productdistributionchnl": {
+                "type": "string",
+                "description": "Distribution channel"
+              },
+              "select": {
+                "type": "string",
+                "description": "Fields to return"
+              }
+            },
+            "required": ["product", "productsalesorg", "productdistributionchnl"]
+          },
+          "mock_response": {
+            "Product": "P-1001",
+            "ProductSalesOrg": "1010",
+            "ProductDistributionChnl": "10",
+            "ItemCategoryGroup": "NORM",
+            "SalesUnit": "EA",
+            "IsMarkedForDeletion": false,
+            "MinimumOrderQuantity": "1.000",
+            "MinimumDeliveryQuantity": "1.000"
+          }
+        },
+        "count_a_productsalesdelivery_for_api_product_srv": {
+          "description": "Return the count of product sales and delivery records matching the filter",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": {
+                "type": "string",
+                "description": "OData $filter expression"
+              }
+            },
+            "required": []
+          },
+          "mock_response": 3
+        }
+      }
+    }
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "created_for_agent": "product-master-data-agent",
+    "mock_mode": true,
+    "deterministic": true,
+    "total_servers": 1,
+    "total_tools": 14,
+    "generated_from": ["translation.json"],
+    "generation_date": "2026-10-28"
+  }
+}
